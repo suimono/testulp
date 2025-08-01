@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Manajemen Order Modern</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== ROOT VARIABLES - MODERN LIGHT THEME ========== */
+        :root {
+            /* Primary Color Scale - Modern Indigo (Adjusted for deeper blue) */
+            --primary-50: #eef2ff;
+            --primary-100: #e0e7ff;
+            --primary-200: #c7d2fe;
+            --primary-300: #a5b4fc;
+            --primary-400: #818cf8;
+            --primary-500: #4f46e5; /* Main accent */
+            --primary-600: #3730a3; /* Suitable for hover/active */
+            --primary-700: #312e81; /* For strong titles */
+            --primary-800: #1e1b4b;
+            --primary-900: #171638;
+
+            /* Accent Color Scale - Vibrant Teal (for good contrast with blue) */
+            --accent-50: #f0fdfa;
+            --accent-100: #ccfbf1;
+            --accent-200: #99f6e4;
+            --accent-300: #5eead4;
+            --accent-500: #14b8a6; /* Main accent color */
+            --accent-600: #0d9488;
+            --accent-700: #0f766e;
+            --accent-800: #115e59;
+            --accent-900: #134e4a;
+
+            /* Neutral Color Scale - Sophisticated Gray for light theme */
+            --neutral-50: #f9fafb;   /* Main light background */
+            --neutral-100: #f3f4f6;
+            --neutral-200: #e5e7eb;
+            --neutral-300: #d1d5db;
+            --neutral-400: #9ca3af;
+            --neutral-500: #6b7280;
+            --neutral-600: #4b5563;
+            --neutral-700: #374151; /* Default text color */
+            --neutral-800: #1f2937; /* Darkest text/elements */
+            --neutral-900: #111827;
+            --neutral-950: #030712;
+
+            /* Semantic Colors */
+            --success-500: #10b981;
+            --warning-500: #f59e0b;
+            --error-500: #ef4444;
+            --info-500: #3b82f6;
+
+            /* Shadows - Adjusted for light theme */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+            /* Transitions */
+            --transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- NEW THEME: DARKER & MORE SOPHISTICATED --- */
+        /* Uncomment this section to activate the new theme */
+        /*
+        :root {
+            --primary-50: #e0e7ff;
+            --primary-100: #c7d2fe;
+            --primary-200: #a5b4fc;
+            --primary-300: #818cf8;
+            --primary-400: #6366f1;
+            --primary-500: #4f46e5; 
+            --primary-600: #4338ca; 
+            --primary-700: #3730a3; 
+            --primary-800: #312e81;
+            --primary-900: #2a2868;
+
+            --accent-50: #ecfeff;
+            --accent-100: #cffafe;
+            --accent-200: #a5f3fc;
+            --accent-300: #67e8f9;
+            --accent-400: #22d3ee;
+            --accent-500: #06b6d4; 
+            --accent-600: #0891b2;
+            --accent-700: #0e7490;
+            --accent-800: #155e75;
+            --accent-900: #164e63;
+
+            --neutral-50: #1a202c; 
+            --neutral-100: #2d3748;
+            --neutral-200: #4a5568;
+            --neutral-300: #718096;
+            --neutral-400: #a0aec0;
+            --neutral-500: #cbd5e0;
+            --neutral-600: #e2e8f0;
+            --neutral-700: #edf2f7; 
+            --neutral-800: #f7fafc; 
+            --neutral-900: #ffffff;
+            --neutral-950: #ffffff;
+
+            --success-500: #10b981;
+            --warning-500: #f59e0b;
+            --error-500: #ef4444;
+            --info-500: #3b82f6;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.18);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.18);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.18);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.18);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+        */
+
+        /* ========== BASE STYLES ========== */
+        body {
+            font-family: 'Inter', 'Poppins', system-ui, -apple-system, BlinkMacMacSystemFont, 
+                         "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", 
+                         "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: var(--neutral-700); /* Default text color */
+            background-color: var(--neutral-50); /* Main background */
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Main Content Area */
+        .main-content {
+            background-color: var(--neutral-50); 
+            border: 1px solid var(--neutral-200);
+            border-radius: 1.5rem; 
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-default);
+        }
+
+        /* Cards and Containers */
+        .filter-section, 
+        .dynamic-forms-container, 
+        .no-data-message, 
+        .input-card, 
+        .option-card,
+        .info-card { 
+            background-color: var(--neutral-50); 
+            border: 1px solid var(--neutral-200);
+            border-radius: 1rem; 
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-default);
+        }
+
+        /* Text Colors */
+        .text-neutral-700 { color: var(--neutral-700); }
+        .text-neutral-800 { color: var(--neutral-800); }
+        .text-neutral-500 { color: var(--neutral-500); }
+        .text-neutral-400 { color: var(--neutral-400); } 
+        .text-neutral-300 { color: var(--neutral-700); } 
+        .text-neutral-200 { color: var(--neutral-800); } 
+        .text-neutral-100 { color: var(--neutral-800); } 
+        .text-primary-700 { color: var(--primary-700); } 
+        .text-primary-500 { color: var(--primary-500); }
+        .text-accent-500 { color: var(--accent-500); }
+        .text-accent-600 { color: var(--accent-600); } 
+        .text-warning-600 { color: var(--warning-500); } 
+        .text-error-700 { color: var(--error-500); } 
+
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out both;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* ========== FORM ELEMENTS ========== */
+        /* Choices.js Custom Styling */
+        .choices {
+            border: 2px solid var(--neutral-300) !important; 
+            border-radius: 0.75rem !important;
+            font-size: 0.875rem !important;
+            min-height: 44px !important;
+            background-color: var(--neutral-50) !important; 
+            transition: var(--transition-default) !important;
+            box-shadow: var(--shadow-sm) !important;
+        }
+
+        .choices__list--single {
+            padding: 8px 12px 8px 12px !important;
+            color: var(--neutral-800) !important; 
+        }
+
+        .choices.is-focused {
+            border-color: var(--primary-500) !important;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2) !important;
+            background-color: var(--neutral-50) !important;
+        }
+
+        .choices__list--dropdown, .choices__list[aria-expanded] {
+            background-color: var(--neutral-50) !important; 
+            border-color: var(--neutral-200) !important;
+            color: var(--neutral-800) !important; 
+        }
+
+        .choices__item--choice {
+            color: var(--neutral-800) !important;
+        }
+
+        .choices__item--choice.is-highlighted {
+            background-color: var(--primary-100) !important; 
+            color: var(--primary-700) !important; 
+        }
+
+        /* Input fields */
+        input[type="text"], input[type="number"], input[type="file"], textarea, input[type="date"] {
+            background-color: var(--neutral-50); 
+            color: var(--neutral-800); 
+            border: 2px solid var(--neutral-300); 
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            transition: var(--transition-default);
+            box-shadow: var(--shadow-sm);
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, input[type="file"]:focus, textarea:focus, input[type="date"]:focus {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+            outline: none;
+        }
+
+
+        /* ========== BUTTONS & PILLS ========== */
+        /* Radio Pills */
+        .radio-pill-single-toggle,
+        .radio-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition-default);
+            font-size: 0.875rem;
+            font-weight: 600;
+            line-height: 1;
+            min-width: 100px;
+            box-shadow: var(--shadow-sm);
+            background-color: var(--neutral-200); 
+            border: 1px solid var(--neutral-300);
+            color: var(--neutral-700); 
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .radio-pill-single-toggle.active,
+        .radio-pill.active {
+            background-color: var(--primary-500); 
+            border-color: var(--primary-600); 
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hover States */
+        .radio-pill-single-toggle:not(.active):hover,
+        .radio-pill:not(.active):hover {
+            background-color: var(--primary-100); 
+            border-color: var(--primary-200);
+            color: var(--primary-700); 
+        }
+
+        /* Main Action Buttons */
+        .action-btn {
+            background-image: linear-gradient(to right, var(--primary-500), var(--primary-600)); 
+            color: white;
+            transition: all 0.2s ease-in-out; 
+            border: none; 
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px); 
+            box-shadow: var(--shadow-lg); 
+            background-image: linear-gradient(to right, var(--primary-600), var(--primary-700)); 
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm); 
+        }
+
+        /* Delete/Cancel Buttons (error-500) */
+        .bg-error-500 {
+            background-color: var(--error-500);
+        }
+        .hover\:bg-error-600:hover {
+            background-color: var(--error-600);
+        }
+
+        /* Warning Buttons (warning-500) */
+        .bg-warning-500 {
+            background-color: var(--warning-500);
+        }
+        .hover\:bg-orange-500:hover {
+            background-color: var(--warning-600);
+        }
+
+        /* Accent Buttons (Add Option) */
+        .add-option-btn {
+            background-color: var(--accent-500); 
+        }
+        .add-option-btn:hover {
+            background-color: var(--accent-600);
+        }
+
+        /* Navigasi Link (Navbar) */
+        .custom-navbar {
+            background-color: var(--neutral-50); 
+            border-color: var(--neutral-200);
+            box-shadow: var(--shadow-xl);
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            width: 100%; 
+            z-index: 1000; 
+            padding: 0.5rem 2rem; 
+            border-radius: 0; 
+            border-bottom: 1px solid var(--neutral-200); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            transition: all 0.2s ease-in-out; 
+        }
+
+        .nav-link {
+            color: var(--neutral-600); 
+        }
+
+        .nav-link.active {
+            background-color: var(--primary-50); 
+            color: var(--primary-700); 
+        }
+
+        .nav-link:hover {
+            background-color: var(--primary-50); 
+            color: var(--primary-700); 
+        }
+
+        /* Adjust main content padding to avoid being hidden behind the fixed navbar */
+        .main-container {
+            padding-top: 6rem; 
+        }
+
+        /* ========== LOADER ========== */
+        .loader-overlay {
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .loader-spinner {
+            border: 8px solid var(--neutral-200); 
+            border-top: 8px solid var(--primary-500); 
+        }
+
+        /* ========== OPTION CHIPS ========== */
+        .option-chip {
+            background-color: var(--primary-100); 
+            color: var(--primary-800); 
+            border: 1px solid var(--primary-200);
+        }
+
+        .option-chip:hover {
+            background-color: var(--primary-200);
+            color: var(--primary-900);
+        }
+
+        /* ========== ORDER ID STYLING ========== */
+        .order-id-short {
+            color: var(--primary-700); 
+        }
+
+        .order-id-short:hover {
+            color: var(--primary-500); 
+        }
+
+        /* ========== SWEETALERT2 CUSTOMIZATION ========== */
+        .swal2-popup {
+            background-color: var(--neutral-50) !important; 
+            color: var(--neutral-800) !important; 
+            border: 1px solid var(--neutral-200) !important;
+            box-shadow: var(--shadow-xl) !important;
+        }
+
+        .swal2-title {
+            color: var(--primary-700) !important; 
+        }
+
+        .swal2-html-container {
+            color: var(--neutral-700) !important;
+        }
+
+        .swal2-confirm {
+            background-color: var(--primary-500) !important;
+        }
+
+        .swal2-confirm:hover {
+            background-color: var(--primary-600) !important;
+        }
+
+        .swal2-cancel {
+            background-color: var(--neutral-500) !important; 
+        }
+
+        .swal2-cancel:hover {
+            background-color: var(--neutral-600) !important;
+        }
+
+        /* Global Error Message */
+        #global-error-message {
+            background: rgba(255, 255, 255, 0.98); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        #global-error-message .bg-white { 
+            background-color: var(--neutral-50) !important;
+            border-color: var(--error-300) !important;
+        }
+        #global-error-message .text-red-700 {
+            color: var(--error-700) !important;
+        }
+        #global-error-message .text-neutral-700 {
+            color: var(--neutral-700) !important;
+        }
+        #global-error-message .bg-red-500 {
+            background-color: var(--error-500) !important;
+        }
+        #global-error-message .hover\:bg-red-600:hover {
+            background-color: var(--error-600) !important;
+        }
+
+        /* Custom Input File Styling */
+        .file-upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            border: 2px dashed var(--neutral-300); 
+            border-radius: 0.75rem;
+            background-color: var(--neutral-50); 
+            color: var(--neutral-500); 
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .file-upload-container:hover {
+            border-color: var(--primary-500); 
+            background-color: var(--primary-50); 
+            color: var(--primary-700);
+        }
+        .file-upload-container i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--neutral-600); 
+            transition: all 0.2s ease-in-out;
+        }
+        .file-upload-container:hover i {
+            color: var(--primary-500);
+        }
+        .file-upload-container span.file-name-display {
+            font-weight: 500;
+            color: var(--neutral-700); 
+        }
+
+        /* Custom Radio Pill Styling for Input Forms */
+        .radio-pill-group {
+            display: flex;
+            gap: 0.5rem; 
+            flex-wrap: wrap; 
+        }
+        .radio-pill-single-toggle,
+        .radio-pill {
+            color: var(--neutral-700); 
+        }
+        .radio-pill-single-toggle.active,
+        .radio-pill.active {
+            color: white; 
+        }
+        .radio-pill-single-toggle:not(.active):hover,
+        .radio-pill:not(.active):hover {
+            color: var(--primary-700); 
+        }
+
+        /* Ensure icons are centered in nav links */
+        .nav-link i {
+            display: block; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        /* Specific styles for the dashboard layout */
+        .dashboard-grid-container {
+            display: flex;
+            flex-direction: column; 
+            gap: 2rem; 
+            align-items: center; 
+        }
+
+        @media (min-width: 768px) { 
+            .dashboard-grid-container {
+                flex-direction: row; 
+                justify-content: center; 
+                align-items: flex-start; 
+            }
+        }
+
+        .chart-and-title-container {
+            flex: 2; 
+            max-width: 66%; 
+            width: 100%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            background-color: var(--neutral-50); 
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-md);
+        }
+
+        .legend-container-wrapper {
+            flex: 1; 
+            max-width: 33%; 
+            width: 100%; 
+            background-color: var(--neutral-50); 
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Adjust canvas size within its container */
+        #ulpChart {
+            max-width: 100%;
+            height: auto;
+            max-height: 400px; 
+        }
+
+        /* Style for the custom legend items */
+        #customLegendItems .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        #customLegendItems .legend-item:hover {
+            background-color: var(--primary-50); 
+        }
+
+        #customLegendItems .legend-item .color-box {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            flex-shrink: 0; 
+        }
+
+        #customLegendItems .legend-item .text-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--neutral-800); 
+        }
+
+        /* New styles for dashboard summary cards */
+        .summary-card {
+            background-color: var(--neutral-50);
+            border: 1px solid var(--neutral-200);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s ease-in-out;
+            min-width: 180px; 
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .summary-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .summary-card .label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--neutral-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card .value {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        /* Specific colors for summary cards */
+        .summary-card.total .icon, .summary-card.total .value { color: var(--primary-600); }
+        .summary-card.pending .icon, .summary-card.pending .value { color: var(--warning-600); }
+        .summary-card.in-progress .icon, .summary-card.in-progress .value { color: var(--info-500); }
+        .summary-card.completed .icon, .summary-card.completed .value { color: var(--success-500); }
+
+    </style>
+</head>
+<body class="bg-neutral-50 text-neutral-700 min-h-screen overflow-x-hidden transition-colors duration-300">
+
+<div id="loader" class="loader-overlay hidden fixed inset-0 flex items-center justify-center z-[9999]">
+    <div class="loader-spinner w-16 h-16 rounded-full border-4 border-t-4 animate-spin"></div>
+</div>
+
+<main class="main-container max-w-7xl mx-auto p-4 md:p-6 lg:p-8 space-y-8">
+    <nav class="custom-navbar bg-white/95 backdrop-blur-xl shadow-xl rounded-full p-2 border border-neutral-200 flex justify-center items-center mx-auto w-fit transition-all duration-200 hover:shadow-2xl hover:-translate-y-0.5">
+        <ul class="nav-list flex flex-row gap-4 md:gap-6 lg:gap-8 flex-wrap justify-center">
+            <li class="nav-link flex flex-col items-center justify-center text-sm font-medium cursor-pointer px-4 py-2 rounded-full min-w-[75px] text-center transition-all duration-200 text-neutral-600 hover:bg-primary-50 hover:text-primary-700 relative overflow-hidden" data-page="dashboard">
+                <i class="fas fa-chart-pie text-lg mb-0.5"></i> <span>Dashboard</span>
+            </li>
+            <li class="nav-link flex flex-col items-center justify-center text-sm font-medium cursor-pointer px-4 py-2 rounded-full min-w-[75px] text-center transition-all duration-200 text-neutral-600 hover:bg-primary-50 hover:text-primary-700 relative overflow-hidden" data-page="order-sheet">
+                <i class="fas fa-pencil-alt text-lg mb-0.5"></i> <span>Input</span>
+            </li>
+            <li class="nav-link flex flex-col items-center justify-center text-sm font-medium cursor-pointer px-4 py-2 rounded-full min-w-[75px] text-center transition-all duration-200 text-neutral-600 hover:bg-primary-50 hover:text-primary-700 relative overflow-hidden" data-page="all-orders">
+                <i class="fas fa-tasks text-lg mb-0.5"></i> <span>Orders</span>
+            </li>
+            <li class="nav-link flex flex-col items-center justify-center text-sm font-medium cursor-pointer px-4 py-2 rounded-full min-w-[75px] text-center transition-all duration-200 text-neutral-600 hover:bg-primary-50 hover:text-primary-700 relative overflow-hidden" data-page="manage-options">
+                <i class="fas fa-cogs text-lg mb-0.5"></i> <span>Pengaturan</span>
+            </li>
+            </ul>
+    </nav>
+
+    <div class="main-content flex-grow bg-neutral-50 rounded-3xl p-6 md:p-8 lg:p-12 shadow-2xl border border-neutral-200 flex flex-col gap-6 md:gap-8 relative">
+        <div id="dashboard" class="page-content hidden animate-fadeIn">
+            <h2 class="font-poppins text-3xl md:text-4xl font-bold text-neutral-800 mb-8 text-center relative pb-4">
+                Analisis Order Sistem
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"></span>
+            </h2>
+
+            <!-- Dashboard Summary Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="summary-card total">
+                    <i class="fas fa-clipboard-list icon"></i>
+                    <p class="label">Total Form Terisi</p>
+                    <p id="totalFormsFilled" class="value">0</p>
+                </div>
+                <div class="summary-card pending">
+                    <i class="fas fa-clock icon"></i>
+                    <p class="label">Order Pending</p>
+                    <p id="totalPendingOrders" class="value">0</p>
+                </div>
+                <div class="summary-card completed">
+                    <i class="fas fa-circle-check icon"></i>
+                    <p class="label">Order Selesai</p>
+                    <p id="totalCompletedOrders" class="value">0</p>
+                </div>
+            </div>
+
+            <!-- Dashboard Chart Section -->
+            <div class="dashboard-grid-container">
+                <!-- Left Column: Chart and Title -->
+                <div class="chart-and-title-container">
+                    <h3 class="font-poppins text-xl md:text-2xl font-bold text-neutral-800 mb-6 text-center">
+                        Distribusi Order per ULP
+                    </h3>
+                    <div class="w-full h-80 md:h-96 flex items-center justify-center relative">
+                        <canvas id="ulpChart"></canvas>
+                        <p class="no-data-message absolute inset-0 flex items-center justify-center text-error-700 italic p-8 bg-error-50 border-2 border-dashed border-error-300 rounded-2xl flex-col gap-4 text-center" id="noChartData" style="display: none;">
+                            <i class="fas fa-chart-bar text-4xl mb-4"></i>
+                            Tidak ada data order untuk menampilkan grafik. Mulai dengan menambahkan order baru di halaman input.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Custom Legend -->
+                <div class="legend-container-wrapper">
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 text-center">Detail ULP</h3>
+                    <div id="customLegendItems" class="space-y-2">
+                        <!-- Legend items will be rendered here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="order-sheet" class="page-content hidden animate-fadeIn">
+            <h2 class="font-poppins text-4xl font-bold mb-6 text-primary-700 relative pb-4 flex items-center gap-3">
+                <i class="fas fa-pencil-alt text-primary-500 text-3xl"></i> Input Order Baru
+                <span class="absolute bottom-0 left-0 w-20 h-1.5 bg-gradient-to-r from-accent-500 to-teal-500 rounded-full"></span>
+            </h2>
+     <!-- Container tombol dengan latar abu-abu modern -->
+<div class="action-bar flex flex-wrap gap-4 mb-8 justify-start bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 shadow-inner">
+
+    <!-- Tombol Tambah Order -->
+    <button class="action-btn bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-200 flex items-center gap-3 shadow-md uppercase tracking-wider hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-sm" id="add-order-btn" type="button">
+        <i class="fas fa-plus-circle text-xl"></i> Tambah Form Order
+    </button>
+
+    <!-- Tombol Ekspor Excel -->
+    <button class="action-btn bg-gradient-to-r from-warning-500 to-orange-500 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-200 flex items-center gap-3 shadow-md uppercase tracking-wider hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-sm" id="export-xlsx-btn">
+        <i class="fas fa-file-excel text-xl"></i> Ekspor ke Excel
+    </button>
+
+</div>
+
+            <div class="dynamic-forms-container border-2 border-dashed border-neutral-300 rounded-2xl p-6 mt-6 bg-neutral-50" id="dynamicOrderInputs">
+                <p class="placeholder-text text-center text-neutral-500 italic p-8 bg-neutral-100 border-2 border-dashed border-neutral-300 rounded-2xl flex flex-col items-center justify-center gap-4 min-h-[200px]" id="noDynamicFormPlaceholder">
+                    <i class="fas fa-plus-circle text-4xl mb-4 text-primary-500"></i>
+                    Klik "Tambah Form Order" untuk mulai memasukkan data.
+                </p>
+            </div>
+        </div>
+
+        <div id="all-orders" class="page-content hidden animate-fadeIn">
+            <h2 class="font-poppins text-4xl font-bold mb-6 text-primary-700 relative pb-4 flex items-center gap-3">
+                <i class="fas fa-list-alt text-primary-500 text-3xl"></i> Daftar Semua Order
+                <span class="absolute bottom-0 left-0 w-20 h-1.5 bg-gradient-to-r from-accent-500 to-teal-500 rounded-full"></span>
+            </h2>
+            <p class="text-center text-neutral-600 italic mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+                Halaman ini menampilkan seluruh order yang telah disimpan di sistem. Anda dapat melihat detail setiap order dan mengelolanya.
+            </p>
+
+            <div class="filter-section bg-neutral-50 rounded-xl p-6 mb-8 shadow-md border border-neutral-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
+                <div class="form-group">
+                    <label for="filterSearch" class="block mb-2 text-neutral-700 font-medium text-sm">Cari Order:</label>
+                    <input type="text" id="filterSearch" placeholder="Nama Pelanggan, No. Agenda..." class="w-full p-3 border-2 border-neutral-200 rounded-lg text-base transition-all duration-200 bg-neutral-50 text-neutral-800 focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20">
+                </div>
+                <div class="form-group">
+                    <label for="filterUlp" class="block mb-2 text-neutral-700 font-medium text-sm">Filter ULP:</label>
+                    <select id="filterUlp" class="w-full p-3 border-2 border-neutral-200 rounded-lg text-base transition-all duration-200 bg-neutral-50 text-neutral-800 appearance-none focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20">
+                        <option value="">Semua ULP</option>
+                    </select>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-1 flex gap-4">
+                    <button class="action-btn bg-gradient-to-r from-neutral-500 to-neutral-600 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-200 flex items-center justify-center gap-3 shadow-md uppercase tracking-wider hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-sm" id="resetFilterBtn">
+                        <i class="fas fa-sync-alt text-xl"></i> Reset Filter
+                    </button>
+                    <button class="action-btn bg-error-500 hover:bg-error-600 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-200 flex items-center justify-center gap-3 shadow-md uppercase tracking-wider hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-sm" id="resetAllOrdersBtn">
+                        <i class="fas fa-trash-alt text-xl"></i> Hapus Semua
+                    </button>
+                </div>
+            </div>
+
+            <div id="allOrdersList" class="input-display-area grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                <p class="no-data-message text-center text-error-700 italic p-8 bg-error-50 border-2 border-dashed border-error-300 rounded-2xl flex flex-col items-center justify-center gap-4 min-h-[200px] col-span-full" id="noAllOrdersData" style="display: none;">
+                    <i class="fas fa-info-circle text-4xl mb-4"></i>
+                    Belum ada order yang tersimpan atau tidak ada order yang cocok dengan filter. Silakan tambahkan order di halaman Input.
+                </p>
+            </div>
+        </div>
+
+        <div id="manage-options" class="page-content hidden animate-fadeIn">
+            <h2 class="font-poppins text-4xl font-bold mb-6 text-primary-700 relative pb-4 flex items-center gap-3">
+                <i class="fas fa-cogs text-primary-500 text-3xl"></i> Kelola Opsi Dropdown
+                <span class="absolute bottom-0 left-0 w-20 h-1.5 bg-gradient-to-r from-accent-500 to-teal-500 rounded-full"></span>
+            </h2>
+            <p class="text-center text-neutral-600 italic mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+                Di sini Anda dapat mengelola daftar opsi yang muncul di dropdown formulir order. Tambahkan, edit, atau hapus opsi sesuai kebutuhan.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="option-card bg-neutral-50 rounded-xl p-6 shadow-md border border-neutral-200 flex flex-col">
+                    <h3 class="text-xl font-semibold text-primary-600 mb-4 flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-primary-500"></i> Opsi ULP
+                    </h3>
+                    <div id="ulpOptionsList" class="flex flex-wrap gap-2 mb-4">
+                        </div>
+                    <input type="text" id="addUlpInput" placeholder="Tambah ULP baru..." class="w-full p-2 border border-neutral-300 rounded-md bg-neutral-50 text-neutral-800 focus:outline-none focus:border-primary-500 mb-3">
+                    <button class="add-option-btn bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded-md font-semibold transition-all duration-200" data-category="ulp">
+                        <i class="fas fa-plus"></i> Tambah ULP
+                    </button>
+                </div>
+
+                <div class="option-card bg-neutral-50 rounded-xl p-6 shadow-md border border-neutral-200 flex flex-col">
+                    <h3 class="text-xl font-semibold text-primary-600 mb-4 flex items-center gap-2">
+                        <i class="fas fa-plug text-primary-500"></i> Opsi Tarif/Daya
+                    </h3>
+                    <div id="tarifDayaOptionsList" class="flex flex-wrap gap-2 mb-4">
+                        </div>
+                    <input type="text" id="addTarifDayaInput" placeholder="Tambah Tarif/Daya baru..." class="w-full p-2 border border-neutral-300 rounded-md bg-neutral-50 text-neutral-800 focus:outline-none focus:border-primary-500 mb-3">
+                    <button class="add-option-btn bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded-md font-semibold transition-all duration-200" data-category="tarifDaya">
+                        <i class="fas fa-plus"></i> Tambah Tarif/D
+                    </button>
+                </div>
+
+                <div class="option-card bg-neutral-50 rounded-xl p-6 shadow-md border border-neutral-200 flex flex-col">
+                    <h3 class="text-xl font-semibold text-primary-600 mb-4 flex items-center gap-2">
+                        <i class="fas fa-tachometer-alt text-primary-500"></i> Opsi Kebutuhan KWH
+                    </h3>
+                    <div id="kebutuhanKwhOptionsList" class="flex flex-wrap gap-2 mb-4">
+                        </div>
+                    <input type="text" id="addKebutuhanKwhInput" placeholder="Tambah KWH baru..." class="w-full p-2 border border-neutral-300 rounded-md bg-neutral-50 text-neutral-800 focus:outline-none focus:border-primary-500 mb-3">
+                    <button class="add-option-btn bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded-md font-semibold transition-all duration-200" data-category="kebutuhanKwh">
+                        <i class="fas fa-plus"></i> Tambah KWH
+                    </button>
+                </div>
+
+                <div class="option-card bg-neutral-50 rounded-xl p-6 shadow-md border border-neutral-200 flex flex-col">
+                    <h3 class="text-xl font-semibold text-primary-600 mb-4 flex items-center gap-2">
+                        <i class="fas fa-bolt text-primary-500"></i> Opsi Kebutuhan MCB
+                    </h3>
+                    <div id="kebutuhanMcbOptionsList" class="flex flex-wrap gap-2 mb-4">
+                        </div>
+                    <input type="text" id="addKebutuhanMcbInput" placeholder="Tambah MCB baru..." class="w-full p-2 border border-neutral-300 rounded-md bg-neutral-50 text-neutral-800 focus:outline-none focus:border-primary-500 mb-3">
+                    <button class="add-option-btn bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded-md font-semibold transition-all duration-200" data-category="kebutuhanMcb">
+                        <i class="fas fa-plus"></i> Tambah MCB
+                    </button>
+                </div>
+
+                <div class="option-card bg-neutral-50 rounded-xl p-6 shadow-md border border-neutral-200 flex flex-col">
+                    <h3 class="text-xl font-semibold text-primary-600 mb-4 flex items-center gap-2">
+                        <i class="fas fa-box-open text-primary-500"></i> Opsi Kebutuhan Box APP
+                    </h3>
+                    <div id="kebutuhanBoxAppOptionsList" class="flex flex-wrap gap-2 mb-4">
+                        </div>
+                    <input type="text" id="addKebutuhanBoxAppInput" placeholder="Tambah Box APP baru..." class="w-full p-2 border border-neutral-300 rounded-md bg-neutral-50 text-neutral-800 focus:outline-none focus:border-primary-500 mb-3">
+                    <button class="add-option-btn bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded-md font-semibold transition-all duration-200" data-category="kebutuhanBoxApp">
+                        <i class="fas fa-plus"></i> Tambah Box APP
+                    </button>
+                </div>
+
+                <div class="option-card bg-neutral-50 rounded-xl p-6 shadow-md border border-neutral-200 flex flex-col">
+                    <h3 class="text-xl font-semibold text-primary-600 mb-4 flex items-center gap-2">
+                        <i class="fas fa-ethernet text-primary-500"></i> Opsi Kebutuhan Kabel
+                    </h3>
+                    <div id="kebutuhanKabelOptionsList" class="flex flex-wrap gap-2 mb-4">
+                        </div>
+                    <input type="text" id="addKebutuhanKabelInput" placeholder="Tambah Kabel baru..." class="w-full p-2 border border-neutral-300 rounded-md bg-neutral-50 text-neutral-800 focus:outline-none focus:border-primary-500 mb-3">
+                    <button class="add-option-btn bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded-md font-semibold transition-all duration-200" data-category="kebutuhanKabel">
+                        <i class="fas fa-plus"></i> Tambah Kabel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div id="global-error-message" class="hidden fixed inset-0 flex items-center justify-center bg-red-100 bg-opacity-90 backdrop-blur-sm z-[10000] p-4 animate-fadeIn">
+    <div class="bg-neutral-50 rounded-xl p-8 shadow-2xl border-2 border-error-300 max-w-md text-center flex flex-col items-center">
+        <i class="fas fa-exclamation-triangle text-error-500 text-6xl mb-6 animate-pulse"></i>
+        <h3 class="text-3xl font-bold text-error-700 mb-4 font-poppins">Oops, Terjadi Kesalahan!</h3>
+        <p class="text-neutral-700 text-lg mb-6 leading-relaxed" id="global-error-text">
+            Sistem tidak dapat memuat data. Ini mungkin karena server backend tidak berjalan atau ada masalah koneksi.
+            Mohon coba segarkan halaman atau hubungi administrator.
+        </p>
+        <button id="reload-app-btn" class="bg-error-500 hover:bg-error-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md flex items-center gap-2">
+            <i class="fas fa-sync-alt"></i> Segarkan Halaman
+        </button>
+    </div>
+</div>
+
+<!-- Load Chart.js library first -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+<!-- Then load Chart.js DataLabels Plugin -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Custom JS files - Order is important! -->
+<script src="./js/global.js"></script>
+<script src="./js/dashboard.js"></script>
+<script src="./js/input.js"></script>
+<script src="./js/orders.js"></script>
+<script src="./js/settings.js"></script>
+<script src="./js/app.js"></script>
+
+</body>
+</html>
